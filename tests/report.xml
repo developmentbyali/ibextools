@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="" tests="2" assertions="8" errors="0" warnings="0" failures="0" skipped="0" time="2.031486">
+    <testsuite name="Feature" tests="2" assertions="8" errors="0" warnings="0" failures="0" skipped="0" time="2.031486">
+      <testsuite name="Tests\Feature\ExampleTest" file="D:\work\Androperlab\web-tools-master (1)\web-tools-master\tests\Feature\ExampleTest.php" tests="1" assertions="1" errors="0" warnings="0" failures="0" skipped="0" time="1.180115">
+        <testcase name="testBasicTest" class="Tests\Feature\ExampleTest" classname="Tests.Feature.ExampleTest" file="D:\work\Androperlab\web-tools-master (1)\web-tools-master\tests\Feature\ExampleTest.php" line="15" assertions="1" time="1.180115"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\ShortUrlTest" file="D:\work\Androperlab\web-tools-master (1)\web-tools-master\tests\Feature\ShortUrlTest.php" tests="1" assertions="7" errors="0" warnings="0" failures="0" skipped="0" time="0.851371">
+        <testcase name="short_url_can_be_created" class="Tests\Feature\ShortUrlTest" classname="Tests.Feature.ShortUrlTest" file="D:\work\Androperlab\web-tools-master (1)\web-tools-master\tests\Feature\ShortUrlTest.php" line="13" assertions="7" time="0.851371"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,49 @@
+
+*{
+    text-decoration: none;
+}
+
+.tools {
+    font-size: 15px;
+    display: block;
+    position: relative;
+    background: #e9eef0;
+    border-radius: 3px;
+    cursor:pointer;
+    /* padding: 8px; */
+}
+.tools svg {
+    position: absolute;
+    right: 10px;
+    top: 13px;
+    color: #000;
+    transition: ease-in-out all .25s;
+    opacity: 0.2;
+}
+.tools:hover svg{
+    opacity: 1;
+}
+.minifyButton{
+    margin-bottom: 150px; 
+}
+/* .editablediv{
+    min-height:300px;
+} */
+.CodeMirror{height: 200px !important;} 
+.top-fix-height {
+    min-height: 125px;
+}
+.checkboxes .form-check label{font-size:12px;}
+.checkboxes a{font-size:12px;}
+.toolColor{
+    color: #000 !important;
+    text-decoration: none !important;
+    cursor: pointer;
+}
+@media all and (max-width:480px){
+    .minifyButton{
+        display: block !important;
+        margin: 0 auto !important;
+        margin-bottom: 20px !important;
+    }
+}

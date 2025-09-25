@@ -1,0 +1,279 @@
+*{
+    text-decoration: none;
+}
+.background-clr{
+    background-color: #f2f2f2;
+}
+.new-sec-add h3{
+    font-size: 28px;
+}
+.two-sectn-align{
+    padding-left: 30rem;
+}
+.bg-gradient{
+    background: #a4a9b1;
+    background: linear-gradient(90deg, rgba(52,144,220,1) 62%, rgba(224,228,255,1) 100%);
+}
+.bg-grd-blue {
+    background-image: linear-gradient(to left,#00A1FF,#6A80F5 );
+}
+.bg-grd-cayn {
+    background-image: linear-gradient(to left,#71a7ce,#5182a5 );
+}
+@keyframes sheen {
+    from {
+        left:-500px
+    }
+    to {
+        left:100px
+    }
+}
+@-webkit-keyframes sheen {
+    from {
+        left:-500px
+    }
+    to {
+        left:100px
+    }
+}
+
+.display-5{
+    font-size: 2.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+}
+.display-6{
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+}
+.heading-blue {
+    overflow: hidden;
+    position:relative;
+    &:before {
+        position: absolute;
+        content: "";
+        z-index: 20;
+        transform: rotate(40deg);
+        width: 120px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, .4);
+        right: 20px;
+        top: 0px;
+    }
+    &:after {
+        position: absolute;
+        content: "";
+        z-index: 20;
+        transform: rotate(40deg);
+        width: 120px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, .4);
+        right: 100px;
+        top: 0px;
+    }
+}
+.ws-heading{
+    font-size:18px;
+    font-weight: bold;
+    font-family:$font-family-sans-serif;
+}
+.main-compo-star{
+
+    border: red !important;
+}
+.editablediv {
+    -moz-appearance: textfield;
+    -webkit-appearance: textfield;
+    background-color: #abb4c1;
+    background-color: -moz-field;
+    font: -moz-field;
+    font: -webkit-small-control;
+    padding: 0.375rem 0.75rem;
+    font-weight: 400;
+    background-clip: padding-box;
+    border: 2px solid #050505;
+    border-radius: 10px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    margin-bottom:1.5rem;
+}
+.display-block{
+    display: block;
+}
+
+.max-w70{
+    width: 70%;
+    max-width:70%;
+    display: block;
+    margin:0 auto;
+}
+.hometools{
+    a{
+        color:initial;
+        text-decoration: none;
+    }
+    .card {
+        .card-body {
+            position: relative;
+            cursor: pointer;
+            transition: all ease-in-out .2s;
+            position: relative;
+            overflow: hidden;
+            &:before {
+                position: absolute;
+                content: "";
+                z-index: 20;
+                transform: rotate(40deg);
+                width: 600px;
+                height: 40px;
+                background-color: rgba(255, 255, 255, .4);
+                top:20px;
+                left:-60px;
+            }
+            &:hover {
+                background: #00a1ff;
+                border-color: #058ddc;
+                box-shadow: 0 7px 50px #ccc;
+                h4 {
+                    color: #fff;
+                }
+                p {
+                    color:#fff;
+                }
+                &:before {
+                    animation: sheen .7s;
+                }
+            }
+
+            .btn {
+                position: absolute;
+                bottom: 5px;
+                left: 5px;
+                right: 5px;
+                display: block;
+                width: auto;
+            }
+        }
+    }
+}
+.services-section.card {
+        position: relative;
+        overflow: hidden;
+        transition: all ease-in-out .1s;
+        &:hover{
+            background: #00a1ff;
+            color: #fff;
+            border-color: #00a1ff;
+            &:before{
+                left: -300px;
+                bottom: -300px;
+            }
+            p{
+                a{
+                    color:#000;
+                }
+            }
+        }
+        &:before{
+            width: 500px;
+            height: 500px;
+            content: "";
+            position: absolute;
+            background: rgba(255,255,255,.1);
+            box-shadow: 0 0 40px -20px #0e73ad;
+            left: -500px;
+            bottom: -500px;
+            transform: rotate(40deg);
+            transition: all ease-in-out .3s;
+        }
+    }
+   .buttonWrappers{
+    margin-top:100px
+   }
+    .buttonWrapper{display: inline-block}
+    .buttonWrapper>label{
+        display: block;
+    }
+    .blogUser{
+        background-clip: border-box;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.25rem;
+    }
+    #loadMore{
+        background-color: #3490dc ;
+        border: none;
+    }
+.CodeMirror{height: 700px !important;}
+
+.blogStyling{
+        font-weight: bold;
+    }
+    @media all and (max-width:480px){
+
+        .wrapper-main{
+            width:30% !important;
+            text-align: center;
+        }
+        .editablediv {
+            width: 100% !important;
+            display: inline;
+            margin-left: 0px !important;
+        }
+        .buttonWrappers   button{
+            margin: 0 auto;
+            display: block;
+        }
+        .buttonWrappers{
+            margin-top: unset;
+            display: contents !important;
+        }
+        .mobilerow{
+            margin-left: 4px !important;
+            margin-right: 4px !important;
+        }
+        .mobilepaginate{
+            display: contents !important;
+        }
+        .mobiledisplay{
+            font-size: 22px !important;
+        }
+        .mdLabel{
+            text-align: center !important;
+        }
+        .mobiletext{
+            font-size: 10px!important;
+        }
+        .copyButton{
+            margin-top: 0px !important;
+        }
+    }
+@media all and (min-width:1199px){
+
+}
+
+    @media all and (max-width:992px){
+        .wrapper-main{
+            width:100% !important;
+            text-align: center;
+
+        }
+
+        .CodeMirror{height: 500px !important;}
+        .editablediv {
+            width: 100% !important;
+            display: inline;
+            margin-left: 0px !important;
+        }
+        .minifyButton{
+            margin-bottom: 10px !important
+        }
+        .buttonWrappers{
+            margin-top: unset !important;
+        }
+        .buttonsStyling{
+            display: block;
+        }
+        .mdLabel{
+            text-align: inherit !important;
+        }
+    }

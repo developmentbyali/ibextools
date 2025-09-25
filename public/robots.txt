@@ -1,0 +1,10 @@
+User-agent: ahrefsbot
+Disallow: /
+
+User-agent: checkmarknetwork
+Disallow: /
+
+User-agent: *
+Disallow: /admin/
+
+sitemap: https://ibextools.com/sitemap.xml
