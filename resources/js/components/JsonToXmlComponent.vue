@@ -40,7 +40,7 @@
         },
         data() {
             return {
-                content: '',
+                content: '{\n  "name":"Admin",\n  "age":36,\n  "rights":["admin","editor","contributor"]\n}',
                 contentResult: '',
                 cmOptions1: {
                     tabSize: 4,
@@ -70,16 +70,27 @@
         methods: {
             callBeautify() {
                 mixpanel.track("Visited and use: JsonToXML");
-                console.log('callBeautify')
-                console.log(this.content)
-                var code = {
-                    "name" : "Admin",
-                    "age" : 36,
-                    "rights" : [ "admin", "editor", "contributor" ]
+                // Try to parse the input as JSON. If parsing fails, show an error instead of throwing.
+                let parsed = null;
+                if (!this.content || this.content.trim() === '') {
+                    this.contentResult = '<!-- No input provided -->';
+                    return;
                 }
-                console.log(xmljs.json2xml(code))
-                var options = {compact: false};
-                this.contentResult = xmljs.json2xml(this.content, options);
+                try {
+                    parsed = JSON.parse(this.content);
+                } catch (e) {
+                    // If it isn't valid JSON, show a helpful message.
+                    this.contentResult = 'Invalid JSON: ' + e.message;
+                    return;
+                }
+
+                // Convert parsed object to XML. Use compact mode for cleaner output and pretty print.
+                try {
+                    const options = { compact: true, spaces: 2 };
+                    this.contentResult = xmljs.json2xml(parsed, options);
+                } catch (e) {
+                    this.contentResult = 'Conversion error: ' + (e && e.message ? e.message : e);
+                }
             },
         }
     }
