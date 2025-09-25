@@ -82,16 +82,36 @@
 
            octaltobinary(){
               mixpanel.track("Use:Octal To Binary octaltobinary",);
-              let octal=this.octal_text;
-              let binary= ((parseInt(octal, 8)).toString(2));
-              if(octal!==''){
-                  this.octal_visible=true;
-                  this.contentResult = binary.toString()
-              }
-              else{
-                  this.$alertify.error('Field is empty');
-                  this.octal_visible=false;
+              let octal = (this.octal_text || '').toString().trim();
 
+              if (octal === '') {
+                  this.$alertify.error('Field is empty');
+                  this.octal_visible = false;
+                  return;
+              }
+
+              // Only allow octal digits 0-7 (no spaces, signs or other chars)
+              if (!/^[0-7]+$/.test(octal)) {
+                  this.$alertify.error('Invalid octal number: only digits 0-7 are allowed');
+                  this.octal_visible = false;
+                  return;
+              }
+
+              // Use BigInt to safely convert large octal numbers to binary without precision loss
+              try {
+                  const n = BigInt('0o' + octal);
+                  this.contentResult = n.toString(2);
+                  this.octal_visible = true;
+              } catch (e) {
+                  // Fallback to Number-based conversion for very small numbers / older runtimes
+                  const num = parseInt(octal, 8);
+                  if (isNaN(num)) {
+                      this.$alertify.error('Conversion failed');
+                      this.octal_visible = false;
+                      return;
+                  }
+                  this.contentResult = num.toString(2);
+                  this.octal_visible = true;
               }
 
             },
