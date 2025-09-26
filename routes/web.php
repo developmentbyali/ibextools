@@ -70,6 +70,9 @@ Route::get('/back-link', function () { return view('tool/back-link');})->name('b
 Route::get('/png-converter', function () { return view('tool/png-converter');})->name('png-converter');
 
 Route::post('/file-upload', 'ToolController@fileUpload')->name('file-upload');
+Route::get('/debug-imagick', 'ToolController@debugImagick');
+Route::post('/backlink', 'BacklinkController@make')->name('backlink-make');
+Route::get('/file-download-url/{id}', 'ToolController@fileUrl')->name('file-download-url');
 Route::get('/download-png/{hash}', 'ToolController@pngDownload')->name('file-upload');
 //Route::get('/domain-whois', function () { return view('tool/whois');})->name('whois');
 //Route::post('/domain-whois', 'ToolController@whois')->name('whois-post');

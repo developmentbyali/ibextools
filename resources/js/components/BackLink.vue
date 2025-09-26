@@ -48,11 +48,24 @@
                 this.errors = {}
             },
             backLink(){
-              let links=this.content;
-                console.log(links)
-                let pageTags=document.getElementsByTagName("*").length;
-                console.log('pageTags',pageTags)
-		       },
+                this.errors = {};
+                if (!this.content || this.content.trim() === '') {
+                    this.errors = { url: ['Please enter a URL.'] };
+                    return;
+                }
+                // follow pattern used in ShortUrl.vue: POST to a backend endpoint
+                axios.post('backlink', { url: this.content }).then(response => {
+                    // expected response shape: { link: { full_url: '...' , url: 'original' } }
+                    this.contentResult = response.data;
+                }).catch(error => {
+                    if (error.response && error.response.status === 422) {
+                        this.errors = error.response.data.errors || {};
+                    } else {
+                        // generic user-friendly message
+                        this.$alertify.error('Could not create backlink.');
+                    }
+                });
+            },
             copyToClipboard() {
                 this.clickMsg  = 'Copied!';
                 setTimeout(function() { this.clickMsg = ''; }.bind(this), 5000);
