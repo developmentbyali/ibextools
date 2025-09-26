@@ -72,27 +72,70 @@
 
         methods: {
             jsonDecode(){
-                mixpanel.track("Use:Json Encode jsonDecode",);
-                let jsonData = this.string_text;
-                let jsonStr = jsonData.replace(/(\w+:)|(\w+ :)/g, function(s) {
-                    return '"' + s.substring(0, s.length-1) + '":';
-                });
-                let result='No output';
-                let json_decode = JSON.parse(jsonStr);
-                // let final =JSON.stringify(json_decode)
-                let count=json_decode.length;
-                if(jsonData!==''){
-                    // let json_decode = JSON.parse(jsonStr);
+                mixpanel.track("Use:Json Decode jsonDecode",);
+                const raw = (this.string_text || '').toString().trim();
 
-                    for(let i=0; i<=count;i++){
-                        console.log('checking', [i, json_decode [i]]);
-                    }
-                    console.log('asd',count);
-                    this.contentResult = json_decode.name;
-                }
-                else{
+                if (raw === '') {
                     this.$alertify.error('JSON text is empty');
-                    this.contentResult = result.toString();
+                    this.string_visible = false;
+                    return;
+                }
+
+                const tryParse = (s) => {
+                    try {
+                        return JSON.parse(s);
+                    } catch (e) {
+                        return null;
+                    }
+                };
+
+                // 1) try as-is
+                let parsed = tryParse(raw);
+
+                // 2) try decodeURIComponent then parse
+                if (parsed === null) {
+                    try {
+                        const dec = decodeURIComponent(raw);
+                        parsed = tryParse(dec);
+                    } catch (e) {
+                        // ignore decodeURIComponent errors
+                        parsed = parsed;
+                    }
+                }
+
+                // 3) try base64 (atob) then parse
+                if (parsed === null && typeof atob === 'function') {
+                    try {
+                        const b = atob(raw);
+                        parsed = tryParse(b);
+                    } catch (e) {
+                        parsed = parsed;
+                    }
+                }
+
+                // 4) as a last resort, try to repair unquoted keys (best-effort)
+                if (parsed === null) {
+                    try {
+                        const repaired = raw.replace(/([\{,\s])(\w+)\s*:/g, '$1"$2":');
+                        parsed = tryParse(repaired);
+                    } catch (e) {
+                        parsed = null;
+                    }
+                }
+
+                if (parsed === null) {
+                    this.$alertify.error('Unable to decode JSON. Ensure it is valid JSON or try URL/base64 decoded input.');
+                    this.string_visible = false;
+                    return;
+                }
+
+                // Success: pretty-print the result
+                try {
+                    this.contentResult = JSON.stringify(parsed, null, 2);
+                    this.string_visible = true;
+                } catch (e) {
+                    this.$alertify.error('Failed to stringify decoded JSON');
+                    this.string_visible = false;
                 }
             },
         }
