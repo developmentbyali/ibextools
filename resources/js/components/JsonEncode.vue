@@ -87,19 +87,43 @@
 
             jsonEncode(){
                 mixpanel.track("Use:Json Encode jsonEncode",);
-                let jsonData = this.string_text;
-                let jsonStr = jsonData.replace(/(\w+:)|(\w+ :)/g, function(s) {
-                    return '"' + s.substring(0, s.length-1) + '":';
-                });
-                let result='No output';
-                if(jsonData!==''){
-                    this.json_hidden=true;
-                    this.contentResult = jsonStr.toString();
-                }
-                else{
+                const raw = (this.string_text || '').toString().trim();
+
+                if (raw === '') {
                     this.$alertify.error('JSON text is empty');
-                    this.contentResult = result.toString();
+                    this.string_visible = false;
+                    return;
                 }
+
+                // Ensure we have a canonical JSON string if input is valid JSON
+                let jsonString = raw;
+                try {
+                    const parsed = JSON.parse(raw);
+                    // Minify to canonical form
+                    jsonString = JSON.stringify(parsed);
+                } catch (e) {
+                    // input isn't valid JSON; we'll encode the raw string
+                    jsonString = raw;
+                }
+
+                // Base64 encode: prefer browser btoa, fall back to Buffer for Node
+                let encoded = '';
+                try {
+                    if (typeof btoa === 'function') {
+                        encoded = btoa(jsonString);
+                    } else if (typeof Buffer !== 'undefined') {
+                        encoded = Buffer.from(jsonString, 'utf8').toString('base64');
+                    } else {
+                        throw new Error('No base64 encoder available');
+                    }
+                } catch (e) {
+                    this.$alertify.error('Encoding failed: ' + e.message);
+                    this.string_visible = false;
+                    return;
+                }
+
+                this.string_visible = true;
+                this.contentResult = encoded;
             },
         }
     }
