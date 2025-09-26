@@ -84,16 +84,33 @@
 
            octaltodecimal(){
               mixpanel.track("Use:Octal To Decimal octaltodecimal",);
-              let octal=this.octal_text;
-              let binary= ((parseInt(octal, 8)).toString(10));
-              if(octal!==''){
-                  this.octal_visible=true;
-                  this.contentResult = binary.toString()
-              }
-              else{
-                  this.$alertify.error('Field is empty');
-                  this.octal_visible=false;
+              let octal = (this.octal_text || '').toString().trim();
 
+              if (octal === '') {
+                  this.$alertify.error('Field is empty');
+                  this.octal_visible = false;
+                  return;
+              }
+
+              if (!/^[0-7]+$/.test(octal)) {
+                  this.$alertify.error('Invalid octal number: only digits 0-7 are allowed');
+                  this.octal_visible = false;
+                  return;
+              }
+
+              try {
+                  const n = BigInt('0o' + octal);
+                  this.contentResult = n.toString(10);
+                  this.octal_visible = true;
+              } catch (e) {
+                  const num = parseInt(octal, 8);
+                  if (isNaN(num)) {
+                      this.$alertify.error('Conversion failed');
+                      this.octal_visible = false;
+                      return;
+                  }
+                  this.contentResult = num.toString(10);
+                  this.octal_visible = true;
               }
 
             },
