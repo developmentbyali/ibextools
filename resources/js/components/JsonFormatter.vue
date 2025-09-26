@@ -74,21 +74,22 @@
         methods: {
            jsonformatter(){
                 mixpanel.track("Use:JSON Formatter jsonformatter",);
-                let xml = this.string_text;
-                let myJSON = {ans: this.string_text};
-                let formatter = new JSONFormatter(myJSON);
-                console.log(formatter)
-                return
-                let result='No output';
-                if(xml != ''){
-                    let formatXml=format(xml)
-                    this.string_visible=true;
-                    this.contentResult = formatXml.toString();
-                    console.log(formatXml)
+                const input = (this.string_text || '').toString().trim();
+
+                if (input === '') {
+                    this.$alertify.error('Field is empty');
+                    this.string_visible = false;
+                    return;
                 }
-                else{
-                    this.$alertify.error('Please enter Xml');
-                    this.contentResult = result.toString();
+
+                try {
+                    // Try to parse input as JSON and pretty-print it
+                    const parsed = JSON.parse(input);
+                    this.contentResult = JSON.stringify(parsed, null, 2);
+                    this.string_visible = true;
+                } catch (e) {
+                    this.$alertify.error('Invalid JSON: ' + e.message);
+                    this.string_visible = false;
                 }
             },
         }
